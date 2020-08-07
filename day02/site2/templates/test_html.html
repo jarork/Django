@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用Loader方法加载模板</title>
+
+    <style>
+        h1 {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>姓名: {{ name }}</h1>
+    <h2>年龄：{{ age }}</h2>
+    <h3>爱好：{{ hobbies.0 }} {{ hobbies.1 }}</h3>
+    <h3>父亲：{{ family.father }}</h3>
+    <h3>使用对象的方法：{{ person.show }}</h3>
+    <h3>随机数：{{ random }}</h3>
+    <h3>函数：{{ func1 }}</h3>
+    <!-- 加上|safe之后，js脚本就不会被转义了，就不安全了 -->
+    <!-- JS脚本：{{ script | safe }} -->
+    {{ script }}
+
+    <!-- IF条件语句的用法 -->
+    {% if random >= 50 %}
+    <h3>岁数太大了</h3>
+
+    {% elif random >= 18 %}
+    <h3>澳门赌场，美女荷官，在线发牌</h3>
+
+    {% else %}
+    <h3>本网站少儿不宜，请退出。</h3>
+
+    {% endif %}
+
+
+    <!-- FOR循环的用法：打印hobbies列表中的所有元素并添加索引 -->
+    {% for h in hobbies %}
+    <p>{{ forloop.counter }} {{ h }} {% if forloop.first %}这是第一个爱好{% endif %}</p>
+    {% empty %}
+    <p>这个人没有爱好</p>
+    {% endfor %}
+
+</body>
+
+</html>
