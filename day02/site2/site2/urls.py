@@ -24,5 +24,7 @@ urlpatterns = [
     # localhost:7777/test_html
     path('test_html', views.test_html),
 
-    path('mycal', views.calculator)
+    path('mycal', views.calculator),
+
+    path('404', views.not_found)
 ]

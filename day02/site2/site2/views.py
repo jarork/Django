@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.template import loader
 from django.shortcuts import render
 from random import randint
@@ -124,3 +124,6 @@ def calculator(request):
         script = "<script>alert('请输入运算符和数字')</script>"
 
     return render(request,'calculator.html', locals())
+
+def not_found(request):
+    return HttpResponse("404 not found")
