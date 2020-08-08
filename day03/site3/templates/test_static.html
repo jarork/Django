@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Django演示静态图片</title>
+</head>
+<body>
+    <img src="/static/images/banner01.jpg" alt="">
+    <img src="http://localhost:7777/static/images/banner02.jpg" alt="">
+    {% load static %}
+    <img src="{% static 'images/banner03.jpg' %}" alt="">
+</body>
+</html>

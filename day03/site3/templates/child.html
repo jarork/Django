@@ -1,0 +1,11 @@
+<!-- 模板的继承，这是子模板 -->
+<!-- 修改父模板的标题和内容 -->
+{% extends 'base.html' %}
+
+{% block title %}
+    模板的继承：我是子模板
+{% endblock %}
+
+{% block content %}
+    <h4>这里是子模板中的内容，Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, cumque omnis mollitia, eveniet tenetur nihil quisquam fugit totam accusantium, sint excepturi assumenda ut labore praesentium libero. Excepturi tempora sapiente nam!</h4>
+{% endblock %}

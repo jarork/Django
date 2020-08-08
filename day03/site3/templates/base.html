@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- 模板的继承：本模板是父模板 -->
+    <!-- 定义模板块，此模板块可以被子模板重新定义的同名块覆盖 -->
+    <title>
+        {% block title %}
+        模板的继承：我是父模板
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+    <div id="nav">
+        <a href="">首页</a>
+        <a href="">关于我们</a>
+        <a href="">联系方式</a>
+    </div>
+
+    <div id="content">
+        {% block content %}
+        <!-- 定义模板块，此模板块可以被子模板重新定义的同名块覆盖 -->
+        <h3>父模板中的内容，白日依山尽，黄河入海流，欲穷千里目，更上一层楼</h3>
+        {% endblock %}
+    </div>
+
+    <div id="footer">
+        <h3>京ICP备：102302， 联系方式400-810-2345</h3>
+    </div>
+
+</body>
+
+</html>

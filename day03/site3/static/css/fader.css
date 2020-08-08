@@ -1,0 +1,66 @@
+/* 对index.css进行样式补充, 完成轮播图 */
+
+/* 每一张轮播图 */
+
+.fader .slide {
+    /* float: left; */
+    height: 100%;
+    position: absolute;
+    top: 0;
+    /* 添加切换图片的过渡效果 */
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+.fader .active{
+    /* 添加切换图片的过渡效果 */
+    opacity: 1;
+}
+
+/* 为ul(fader)设置一个高度 */
+
+/* 内边距设置为百分比单位时,统一指宽度的百分比 */
+
+.fader {
+    padding-top: 65%;
+}
+
+.fader li {
+    height: 100%;
+}
+
+/* 重写top_pic的图片高度使它和轮播图上下对齐 */
+
+.top_pic li img {
+    height: 233px;
+}
+
+.top_pic>li:last-child {
+    margin-top: 22px;
+}
+
+/* 调整左右箭头和轮播图页码的小圆点的堆叠顺序
+    使之能够被显示出来 */
+.prev, .next {
+    z-index: 4;
+}
+
+.pager_list {
+    z-index: 4;
+    /* 不显示小圆点上的文字内容 */
+    color: transparent;
+}
+
+.pager_list li {
+    opacity: 0.5;
+}
+
+/* 轮播图在当前图片对应的li中会添加一个class active */
+.pager_list li.active, .pager_list li:hover{
+    opacity: 1;
+    cursor: pointer;
+}
+
+.prev:hover, .next:hover{
+    cursor: pointer;
+}

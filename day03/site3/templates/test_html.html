@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test_html</title>
+</head>
+<body>
+    <ul>
+        <!-- "巴拉尔那克扎耶夫斯基" 显示为 "巴拉尔那" -->
+        <li>姓名：{{ name | truncatechars:4 }}</li>
+        <!-- "Balarnakzhayevskii" 显示为 "BALARN" -->
+        <li>英文名：{{ ename | truncatechars:6 | upper }}</li>
+        <li>年龄：{{ age }}</li>
+    </ul>
+</body>
+</html>

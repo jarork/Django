@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- 引入外部css文件 -->
+    <link rel="stylesheet" href="../static/css/index.css">
+
+    <!-- 博客列表相关数据 -->
+    <script src="../static/js/blogs.data.js"></script>
+    <!-- 轮播图数据 -->
+    <script src="../static/js/fader.data.js"></script>
+
+    <!-- 导入Vue -->
+    <script src="../static/js/vue.js"></script>
+    
+    <link rel="stylesheet" href="../static/css/fader.css">
+
+</head>
+
+{% verbatim myblock %}
+
+<body>
+    <!-- HTML5 规范的语义化标签 -->
+    <header>
+        <!-- 导航栏 -->
+        <nav>
+            <h1 class="logo">
+                <a href="#">个人博客</a>
+            </h1>
+            <ul>
+                <li><a href="#">网站首页</a></li>
+                <li><a href="#">文章列表</a></li>
+                <li><a href="#">我的相册</a></li>
+                <li><a href="#">留言</a></li>
+                <li><a href="#">关于我</a></li>
+                <li><a href="#">发表博客</a></li>
+                <div>
+                    <a href="#" id="register">注册</a>
+                    <a href="#" id="login">登录</a>
+                </div>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 左侧 轮播图 -->
+        <div class="banner">
+            <!-- 录播图父元素 -->
+            <ul class="fader" @mouseover="movein" @mouseout="moveout">
+                <!-- 这里使用JQ添加每一幻灯片的图 -->
+                <li :class={slide:1,active:i==index} v-for="(slide, i) in slides">
+                    <a href="#">
+                        <img :src="['../static/images/'+ slide.img_url]" alt="">
+                            <span class="img_info">{{ slide.img_info }}</span>
+                    </a>
+                </li>
+
+                <!-- 轮播图的控制元素 -->
+                <li class="fader_controls">
+                    <!-- 左右箭头 -->
+                    <div class="page prev" data-target="prev" @click="prev">&lt;</div>
+                    <div class="page next" data-target="next" @click="next">&gt;</div>
+                    <!-- 轮播图小圆点页标 -->
+                    <ul class="pager_list">
+                        <li :class={active:i==index} v-for="(dot, i) in slides" @click=jump(i)></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- 右侧 侧边图片 -->
+        <ul class="top_pic">
+            <li><a href="#">
+                    <i>
+                        <img src="../static/images/toppic01.jpg" alt="">
+                    </i>
+                    <div>程序猿的生活也是需要一些格调的</div>
+                    <span>程序猿的B格</span>
+                </a></li>
+            <li><a href="#">
+                    <i>
+                        <img src="../static/images/toppic02.jpg" alt="">
+                    </i>
+                    <div>做一个程序猿也是需要一定个人修养的</div>
+                    <span>程序猿的个人修养</span>
+                </a></li>
+        </ul>
+
+        <!-- 博客列表 -->
+        <div class="blogsbox">
+            <!-- 使用JS加载所有的博客信息 -->
+            <div class="blogs" v-for="article in articles">
+                <!-- 博客标题 -->
+                <h3 class="blogtitle">
+                    <a href="#">{{ article.blogtitle }}</a>
+                </h3>
+                <!-- 博客图片 -->
+                <div class="blogpic">
+                    <a href="#">
+                        <img :src="['../static/images/'+article.blogpic]" alt="">
+                    </a>
+                </div>
+                <!-- 博客文本 -->
+                <p class="blogtext">
+                    {{ article.blogtext }}
+                </p>
+                <!-- 信息列表 -->
+                <ul>
+                    <li class="author"><a href="#">{{ article.bloginfo.author }}</a></li>
+                    <li class="category"><a href="#">{{ article.bloginfo.lmname }}</a></li>
+                    <li class="pdate"><a href="#">{{ article.bloginfo.timer }}</a></li>
+                    <li class="view"><a href="#">{{ article.bloginfo.view }}</a></li>
+                    <li class="like"><a href="#">{{ article.bloginfo.like }}</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            Design by Apple California
+            <a href="#">个人博客</a>
+            <a href="#">京ICP备233333号-1</a>
+        </div>
+    </footer>
+
+    <script>
+        var fader = new Vue({
+            el: ".fader",
+            data: {
+                slides: faderData,
+                index: 0,
+            },
+            methods: {
+                prev:function(){
+                    if (this.index == 0){
+                        this.index = this.slides.length - 1;
+                    }
+                    else{
+                        this.index -= 1;
+                    }
+                },
+                next:function(){
+                    if (this.index >= this.slides.length - 1){
+                        this.index = 0;
+                    }
+                    else{
+                        this.index += 1;
+                    }
+                },
+                jump:function(i){
+                    this.index = i;
+                },
+                // 鼠标移入轮播图，自动播放暂停
+                movein() {
+                    clearInterval(window.slideTimer);
+                },
+
+                // 鼠标移出轮播图，自动播放重新开始
+                moveout() {
+                    slideTimer = setInterval(this.next, 1500);
+                }
+            }
+        })
+
+        // 实现轮播图的自动播放
+        var slideTimer = setInterval(this.fader.next, 1500);
+
+        var blogs = new Vue({
+            el: ".blogsbox",
+            data: {
+                // 初始只加载头3条博客内容
+                articles: blogData.slice(0, 3),
+            }
+        })
+
+        
+
+        // 实现页面的滚动加载，页面接近底端则继续加载5条博客内容
+        document.onscroll = function () {
+            var scrollTop = document.documentElement.scrollTop
+            var windowHeight = document.documentElement.clientHeight
+            var documentHeight = document.documentElement.scrollHeight
+            // console.log(scrollTop, windowHeight, documentHeight)
+
+            // 当滚动条接近页面最下端的时候
+            if (documentHeight - scrollTop - windowHeight <= 200) {
+                console.log("快到底了")
+                // 获取后面 5 条数据
+                // 页面中如果有3条数据,取slice(3,8)
+                // 如果页面中有n条数据,取slice(n,n+5)
+
+                var size = blogs.articles.length;
+                var canLoad = true;
+
+                if (canLoad){
+                    var data = blogData.slice(0, size + 5);
+                    if (data.length > 0){
+                        blogs.articles = data;
+                    }
+                    else{
+                        console.log("没数据了");
+                        canLoad = false;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+{% endverbatim myblock %}

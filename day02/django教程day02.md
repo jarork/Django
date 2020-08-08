@@ -408,6 +408,7 @@ def calculator(request):
 
 ### 模板的继承
 - 模板继承可以使父模板的内容重用,子模板直接继承父模板的全部内容并可以覆盖父模板中相应的块
+
 - 定义父模板中的块 `block`标签
     - 标识出哪些在子模块中是允许被修改的
     - block标签：在父模板中定义，可以在子模板中覆盖
@@ -416,6 +417,7 @@ def calculator(request):
         定义模板块，此模板块可以被子模板重新定义的同名块覆盖
         {% endblock block_name %}
         ```
+    
 - 继承模板 `extends` 标签(写在模板文件的第一行)
     - 子模板继承语法标签
         - `{% extends '父模板名称' %}`
@@ -440,8 +442,97 @@ def calculator(request):
 - 模板的继承示例:
   
     - ![](images/template_inherit.png)
+    
+    #### 模板继承示例
+    
+    * Python部分
+    
+    ```python
+    # urls.py
+    from django.contrib import admin
+    from django.urls import path
+    from . import views
+    
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('test_html', views.test_html),
+        path('base', views.base),
+        path('child', views.child),
+    ]
+    
+    # views.py
+    from django.shortcuts import render
+    
+    # 测试模板的继承
+    def base(request):
+        return render(request, 'base.html')
+    # 子模板会根据标签覆盖部分父模板中的内容
+    def child(request):
+        return render(request, 'child.html')
+    ```
+    
+    * HTML部分
+    
+    ```html
+    <!-- 父模板 base.html -->
+    
+    <!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- 模板的继承：本模板是父模板 -->
+        <!-- 定义模板块，此模板块可以被子模板重新定义的同名块覆盖 -->
+        <title>
+            {% block title %}
+            模板的继承：我是父模板
+            {% endblock %}
+        </title>
+    </head>
+    
+    <body>
+        <div id="nav">
+            <a href="">首页</a>
+            <a href="">关于我们</a>
+            <a href="">联系方式</a>
+        </div>
+    
+        <div id="content">
+            {% block content %}
+            <!-- 定义模板块，此模板块可以被子模板重新定义的同名块覆盖 -->
+            <h3>父模板中的内容，白日依山尽，黄河入海流，欲穷千里目，更上一层楼</h3>
+            {% endblock %}
+        </div>
+    
+        <div id="footer">
+            <h3>京ICP备：102302， 联系方式400-810-2345</h3>
+        </div>
+    
+    </body>
+    
+    </html>
+    
+    
+    <!-- 子模板 child.html -->
+    <!-- 模板的继承，这是子模板 -->
+    <!-- 修改父模板的标题和内容 -->
+    {% extends 'base.html' %}
+    
+    {% block title %}
+        模板的继承：我是子模板
+    {% endblock %}
+    
+    {% block content %}
+        <h4>这里是子模板中的内容，Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, cumque omnis mollitia, eveniet tenetur nihil quisquam fugit totam accusantium, sint excepturi assumenda ut labore praesentium libero. Excepturi tempora sapiente nam!</h4>
+    {% endblock %}
+    ```
+    
+    
 
 ### url 反向解析
+
 - url 反向解析是指在视图或模板中，用path定义的名称来查找或计算出相应的路由
 
 - path 函数的语法
