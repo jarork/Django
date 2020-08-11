@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>更新图书</title>
+</head>
+
+<body>
+    <form action="/bookstore/update_book/{{ book.id }}" method="POST">
+        <p>
+            书名：<input type="text" value="{{ book.title }}" disabled="disabled">
+        </p>
+        <p>
+            出版社：<input type="text" value="{{ book.pub }}" disabled="disabled">
+        </p>
+        <p>
+            定价：<input type="text" value="{{ book.market_price }}" name="market_price">
+        </p>
+        <p>
+            零售价：<input type="text" value="{{ book.price }}" name="price">
+        </p>
+
+        <input type="submit" value="提交">
+    </form>
+
+</body>
+
+</html>

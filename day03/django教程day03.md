@@ -65,20 +65,20 @@
     ]
     ```
 
-### 应用的结构
+### 应用的结构(每次创建应用都会自动生成下列文件)
 
 1. `migrations` 文件夹
-    - 保存数据迁移的中间文件
+    - 保存数据迁移的中间文件，和模型相关，和数据库相关
 2. `__init__.py`
     - 应用子包的初始化文件
 3. `admin.py`
-    - 应用的后台管理配置文件  
+    - 应用的后台管理配置文件，可以管理数据的增删改查  
 4. `apps.py`
     - 应用的属性配置文件
 5. `models.py`
     - 与数据库相关的模型映射类文件
 6. `tests.py`
-    - 应用的单元测试文件
+    - 应用的单元测试文件，用来写测试脚本
 7. `views.py`
     - 定义视图处理函数的文件
 
@@ -91,8 +91,8 @@
   
     - 用于分发将当前路由转到各个应用的路由配置文件的 urlpatterns 进行分布式处理
 - 函数格式
-    - include('app命字.url模块名')
-    > 模块`app命字/url模块名.py` 文件件里必须有urlpatterns 列表
+    - include('app名字.url模块名')
+    > 模块`app名字/url模块名.py` 文件件里必须有urlpatterns 列表
     > 使用前需要使用 `from django.conf.urls import include` 导入此函数
 
 - 练习:
@@ -150,6 +150,8 @@
         - 创建 `create database 数据库名 default charset utf8      ;`
         ```sql
         create database mywebdb default charset utf8 collate utf8_general_ci;
+        
+        collate utf8_general_ci(case insensitive大小写不敏感);
         ```
     2. 数据库的配置
         - sqlite 数据库配置
@@ -184,9 +186,9 @@
             'django.db.backends.oracle'
             'django.db.backends.postgresql'
             ```
-            - mysql引擎如下:
+        - mysql引擎如下:
                 - 'django.db.backends.mysql'
-
+    
         2. NAME
             - 指定要连接的数据库的名称
             - `'NAME': 'mywebdb'`
@@ -211,7 +213,7 @@
 
 
 ### Django 的 ORM框架
-- ORM（Object Relational Mapping）即对象关系映射，它是一种程序技术，它允许你使用类和对象对数据库进行操作,从而避免通过SQL语句操作数据库
+- ORM（Object Relational Mapping）即对象关系映射，它是一种程序技术，它允许你使用类和对象对数据库进行操作,从而避免通过SQL语句操作数据库。
 - ORM框架的作用
     1. 建立模型类和表之间的对应关系，允许我们通过面向对象的方式来操作数据库。
     2. 根据设计的模型类生成数据库中的表格。
@@ -455,7 +457,7 @@
 
 ### 创建数据对象
 - Django 使用一种直观的方式把数据库表中的数据表示成Python 对象
-- 创建数据中每一条记录就是创建一个数据对象
+- 创建数据中每一条记录就是创建一个数据对象，有两种方式：
     1. MyModel.objects.create(属性1=值1, 属性2=值1,...)
         - 成功: 返回创建好的实体对象
         - 失败: 抛出异常

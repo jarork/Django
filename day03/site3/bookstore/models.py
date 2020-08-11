@@ -7,3 +7,4 @@ class Book(models.Model):
 
     market_price = models.DecimalField("市场价", max_digits=5, decimal_places=2, default=0.0)
     publish = models.CharField("出版社", max_length=50, default='')
+    note = models.TextField("备注", max_length=1000, default='')
