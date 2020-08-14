@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>Axios</title>
+
+    <!-- 总结：Axios 
+    
+        axios语法：
+        axios.get(地址?查询字符串).then(
+                                    function(response){},  请求成功之后
+                                    function(err){}         请求失败之后
+                                    )
+        axios.post(地址,参数对象).then(
+                                    function(response){},  请求成功之后
+                                    function(err){}         请求失败之后
+                                    )
+    -->
+    
+</head>
+<body>
+    <input type="button" value="GET请求" class="get">
+    <input type="button" value="POST请求" class="post">
+
+    <!-- 导入axios -->
+    <script src="js/axios.min.js"></script>
+    <!-- 官方地址：<script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+
+    <script>
+        /*
+            端口名：接收访客行为数据
+            请求地址：http://localhost:7777/axios
+            请求方法：无
+            请求参数：无
+            响应内容：访客行为
+        */
+        document.querySelector(".get").onclick = function(){
+            axios.get("http://localhost:8888/axios")
+            .then(function(response){
+                console.log(response.data.name);
+            },function(err){
+                console.log(err);
+            })
+        }
+    </script>
+</body>
+</html>
