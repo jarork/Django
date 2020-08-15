@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 import time
 
 # 导入缓存
@@ -14,3 +15,13 @@ def test_cache(request):
     t1 = time.time()
     return HttpResponse(f"t1 : {t1}")
 
+def test_middleware(request):
+    print('--view.py--')
+    return HttpResponse('--test middleware--')
+
+def test_csrf(request):
+    if request.method == 'GET':
+        return render(request, 'test_csrf.html')
+
+    elif request.method == 'POST':
+        return HttpResponse('--通过--')
