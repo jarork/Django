@@ -22,4 +22,5 @@ urlpatterns = [
     path('test_cache', views.test_cache),
     path('test_middleware', views.test_middleware),
     path('test_csrf', views.test_csrf),
+    path('test_file', views.test_file),
 ]

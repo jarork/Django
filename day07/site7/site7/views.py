@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 import time
 
@@ -25,3 +25,11 @@ def test_csrf(request):
 
     elif request.method == 'POST':
         return HttpResponse('--通过--')
+
+def test_file(request):
+    resp = JsonResponse({'hi':1123,'hello':999})
+    resp['Content-Disposition'] = 'attachment; filename="myJson.json"'
+    
+    return resp
+
+
